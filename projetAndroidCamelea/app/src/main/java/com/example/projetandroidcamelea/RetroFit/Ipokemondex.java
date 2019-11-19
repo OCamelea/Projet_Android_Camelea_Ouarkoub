@@ -1,6 +1,6 @@
 package com.example.projetandroidcamelea.RetroFit;
 
-import android.database.Observable;
+import io.reactivex.Observable;
 
 import com.example.projetandroidcamelea.Model.Pokedex;
 
