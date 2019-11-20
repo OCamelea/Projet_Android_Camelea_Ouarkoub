@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -56,7 +57,7 @@ public class PokemonList extends Fragment {
         View view = inflater.inflate(R.layout.fragment_pokemon_list, container, false);
         pokemon_list_recyclerview = (RecyclerView) view.findViewById(R.id.pokemon_list_recyclerview);
         pokemon_list_recyclerview.setHasFixedSize(true);
-        pokemon_list_recyclerview.setLayoutManager(new GridLayoutManager(getActivity(),2));
+        pokemon_list_recyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
         ItemOffSetDecoration itemOffSetDecoration = new ItemOffSetDecoration(getActivity(),R.dimen.spacing);
         pokemon_list_recyclerview.addItemDecoration(itemOffSetDecoration);
         fetchData();

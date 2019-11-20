@@ -25,14 +25,15 @@
 
         <TextView
             android:id="@+id/pokemon_name"
-            android:text="Bulbazar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
+            android:text="Bulbazar"
             android:textSize="24dp"
-            android:textStyle="bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:textStyle="bold" />
+
 
     </LinearLayout>
 </RelativeLayout>
