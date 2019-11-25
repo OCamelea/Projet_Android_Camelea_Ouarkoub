@@ -3,12 +3,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".PokemonList">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/list_icon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginRight="20dp"
+            app:srcCompat="@drawable/ic_list_icon" />
+
+        <ImageView
+            android:id="@+id/grid_icon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@color/ToolBarYellow"
+            app:srcCompat="@drawable/ic_grid_icon" />
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_height="wrap_content"

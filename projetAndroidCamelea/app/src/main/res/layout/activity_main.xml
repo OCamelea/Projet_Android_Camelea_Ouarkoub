@@ -9,15 +9,17 @@
 
   <androidx.appcompat.widget.Toolbar
       android:id="@+id/toolbar"
-      android:minHeight="?attr/actionBarSize"
-      app:titleTextColor="@android:color/white"
-      android:background="@color/ToolBarYellow"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content">
+      android:layout_height="wrap_content"
+      android:background="@color/ToolBarYellow"
+      android:minHeight="?attr/actionBarSize"
+      app:titleTextColor="@android:color/white">
+
+
 
   </androidx.appcompat.widget.Toolbar>
 
-    <fragment
+  <fragment
         android:id="@+id/list_pokemon_fragment"
         android:name="com.example.projetandroidcamelea.PokemonList"
         android:layout_width="match_parent"

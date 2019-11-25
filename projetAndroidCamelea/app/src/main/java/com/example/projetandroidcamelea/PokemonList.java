@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.example.projetandroidcamelea.Adapter.PokemonListAdapter;
 import com.example.projetandroidcamelea.Common.Common;
@@ -34,6 +35,10 @@ public class PokemonList extends Fragment {
     Ipokemondex ipokemondex;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
     RecyclerView pokemon_list_recyclerview;
+    private ImageView list_icon;
+    private ImageView grid_icon;
+    private String affichage ="list";
+    private RecyclerView.LayoutManager layoutManager;
 
     static PokemonList instance;
 
@@ -53,11 +58,38 @@ public class PokemonList extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
+
         View view = inflater.inflate(R.layout.fragment_pokemon_list, container, false);
+        // Inflate the layout for this fragment
+        list_icon = (ImageView) view.findViewById(R.id.list_icon);
+        grid_icon = (ImageView) view.findViewById(R.id.grid_icon);
+
+        layoutManager = new LinearLayoutManager(getActivity());
+
+
         pokemon_list_recyclerview = (RecyclerView) view.findViewById(R.id.pokemon_list_recyclerview);
+        pokemon_list_recyclerview.setLayoutManager(layoutManager);
         pokemon_list_recyclerview.setHasFixedSize(true);
-        pokemon_list_recyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
+        fetchData();
+        list_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                layoutManager = new LinearLayoutManager(getActivity());
+                pokemon_list_recyclerview.setLayoutManager(layoutManager);
+                affichage = "list";
+                fetchData();
+            }
+        });
+
+        grid_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                layoutManager = new GridLayoutManager(getActivity(), 2);
+                pokemon_list_recyclerview.setLayoutManager(layoutManager);
+                affichage = "grid";
+                fetchData();
+            }});
         ItemOffSetDecoration itemOffSetDecoration = new ItemOffSetDecoration(getActivity(),R.dimen.spacing);
         pokemon_list_recyclerview.addItemDecoration(itemOffSetDecoration);
         fetchData();
@@ -73,6 +105,7 @@ public class PokemonList extends Fragment {
             public void accept(Pokedex pokedex) throws Exception{
                 Common.commonPokemonList = pokedex.getPokemon();
                 PokemonListAdapter adapter = new PokemonListAdapter(getActivity(),Common.commonPokemonList);
+                adapter.affichage=affichage;
                 pokemon_list_recyclerview.setAdapter(adapter);
             }
         }));

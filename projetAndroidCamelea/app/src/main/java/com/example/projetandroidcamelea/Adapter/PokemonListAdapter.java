@@ -20,6 +20,7 @@ public class PokemonListAdapter extends RecyclerView.Adapter<PokemonListAdapter.
 
     Context context;
     List<Pokemon> pokemonList;
+    public String affichage;
 
     public PokemonListAdapter(Context context, List<Pokemon> pokemonList) {
         this.context = context;
@@ -29,9 +30,17 @@ public class PokemonListAdapter extends RecyclerView.Adapter<PokemonListAdapter.
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(context).inflate(R.layout.pokemon_list_diplay_item,parent,false);
-        return new MyViewHolder(itemView);
+        if (affichage == "grid") {
+            View itemView = LayoutInflater.from(context).inflate(R.layout.pokemon_list_item, parent, false);
+            return new MyViewHolder(itemView);
+        }
+        else {
+            View itemView = LayoutInflater.from(context).inflate(R.layout.pokemon_list_diplay_item, parent, false);
+            return new MyViewHolder(itemView);
+
+        }
     }
+
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
