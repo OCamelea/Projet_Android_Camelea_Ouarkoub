@@ -16,7 +16,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.projetandroidcamelea.Common.Common;
+import com.example.projetandroidcamelea.Model.NextEvolution;
 import com.example.projetandroidcamelea.Model.Pokemon;
+import com.example.projetandroidcamelea.Model.PrevEvolution;
 
 
 /**
@@ -26,8 +28,8 @@ public class PokemonDetail extends Fragment {
 
     static PokemonDetail instance;
     ImageView pokemon_image;
-    TextView pokemon_name,pokemon_height,pokemon_weight;
-    RecyclerView  recycler_type,recycler_weakness;
+    TextView pokemon_name,pokemon_height,pokemon_weight, pokemon_weaknesses,pokemon_type, pokemon_next_evol , pokemon_previous_evol;
+
 
     public static PokemonDetail getInstance() {
         if (instance == null){
@@ -61,12 +63,10 @@ public class PokemonDetail extends Fragment {
         pokemon_name = (TextView) itemView.findViewById(R.id.pokemon_name);
         pokemon_height = (TextView) itemView.findViewById(R.id.height);
         pokemon_weight = (TextView) itemView.findViewById(R.id.weight);
-        recycler_type =(RecyclerView) itemView.findViewById(R.id.recycler_type);
-        recycler_type.setHasFixedSize(true);
-        recycler_type.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
-        recycler_weakness =(RecyclerView) itemView.findViewById(R.id.recycler_weakness);
-        recycler_weakness.setHasFixedSize(true);
-        recycler_weakness.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
+        pokemon_type = (TextView) itemView.findViewById(R.id.pokemon_type);
+        pokemon_weaknesses = (TextView) itemView.findViewById(R.id.pokemon_weakness);
+        pokemon_previous_evol = (TextView) itemView.findViewById(R.id.pokemon_previous_evolution);
+        pokemon_next_evol = (TextView) itemView.findViewById(R.id.pokemon_next_evolution);
 
         setDetailPokemon(pokemon);
 
@@ -81,7 +81,41 @@ public class PokemonDetail extends Fragment {
 
         //Loading text data
         pokemon_name.setText((pokemon.getName()));
-        pokemon_height.setText("Height : " +pokemon.getHeight());
-        pokemon_weight.setText("Weight :"+ pokemon.getWeight());
-    }
+        pokemon_height.setText("Height  "  + "\t" +pokemon.getHeight());
+        pokemon_weight.setText("Weight " + "\t" +pokemon.getWeight());
+
+        //Converting list of types to string
+        String pokemon_types = "Types :" + "\t";
+        for (String s : pokemon.getType())
+        {
+            pokemon_types += s + " ";
+        }
+        pokemon_type.setText(pokemon_types);
+
+        //Converting list of weakness to string
+        String pokemon_weakness = "Weakness :" + "\t";
+        for (String s : pokemon.getWeaknesses())
+        {
+            pokemon_weakness += s + " ";
+        }
+        pokemon_weaknesses.setText(pokemon_weakness);
+
+        //Converting list of next evolutions to string
+        if(pokemon.getNext_evolution() != null) {
+            String pokemon_next_evolution = "Next evolutions :" + "\t";
+            for (NextEvolution s : pokemon.getNext_evolution()) {
+                pokemon_next_evolution += s.getName() + "\t";
+            }
+            pokemon_next_evol.setText(pokemon_next_evolution);
+        }
+        //Converting list of previous evolutions to string
+        if(pokemon.getPrev_evolution() != null){
+        String pokemon_previous_evolution = "Previous evolutions :" + "\t";
+        for (PrevEvolution s : pokemon.getPrev_evolution())
+        {
+            pokemon_previous_evolution += s.getName() + "\t";
+        }
+        pokemon_previous_evol.setText(pokemon_previous_evolution);
+
+    }}
 }
