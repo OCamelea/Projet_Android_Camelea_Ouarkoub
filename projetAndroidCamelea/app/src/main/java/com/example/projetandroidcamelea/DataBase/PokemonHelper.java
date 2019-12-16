@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 public class PokemonHelper extends SQLiteOpenHelper {
@@ -13,18 +14,28 @@ public class PokemonHelper extends SQLiteOpenHelper {
     public static final String POKEMON_TABLE_NAME = "pokemon_table";
     public static final String POKEMON_COLUMN_ID = "_id";
     public static final String POKEMON_COLUMN_NAME = "name";
-    public static final String POKEMON_COLUMN_IMAGE = "image";
+    public static final String POKEMON_COLUMN_IMAGE = "img";
+    private static PokemonHelper instance;
 
-    public PokemonHelper(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, name, factory, version);
+    public PokemonHelper(@Nullable Context context) {
+        super(context, DATABASE_NAME, null,DATABASE_VERSION);
     }
+
+
+    public static PokemonHelper getInstance(Context context) {
+        if (instance == null) {
+            instance = new PokemonHelper(context.getApplicationContext());
+        }
+        return instance;
+    }
+
 
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         //Creating the table
         db.execSQL("CREATE TABLE " + POKEMON_TABLE_NAME + " (" +
-                POKEMON_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "UNIQUE" + POKEMON_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 POKEMON_COLUMN_NAME + " TEXT, " +
                 POKEMON_COLUMN_IMAGE + " TEXT" + ")");
 

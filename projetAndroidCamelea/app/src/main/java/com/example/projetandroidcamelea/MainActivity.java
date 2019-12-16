@@ -17,11 +17,13 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.example.projetandroidcamelea.Common.Common;
+import com.example.projetandroidcamelea.DataBase.PokemonDAO;
 import com.example.projetandroidcamelea.Model.Pokemon;
 
 
 public class MainActivity extends AppCompatActivity {
 
+    private PokemonDAO database;
     Toolbar toolbar;
     BroadcastReceiver showDetail = new BroadcastReceiver() {
         @Override
@@ -54,7 +56,10 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+      super.onCreate(savedInstanceState);
+        database = PokemonDAO.getInstance(this);
+        database.open();
+
         setContentView(R.layout.activity_main);
 
         toolbar = findViewById(R.id.toolbar);
@@ -82,5 +87,11 @@ public class MainActivity extends AppCompatActivity {
 
         }
         return true;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        database.close();
     }
 }

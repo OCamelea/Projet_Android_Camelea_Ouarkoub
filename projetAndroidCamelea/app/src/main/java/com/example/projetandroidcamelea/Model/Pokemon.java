@@ -1,11 +1,17 @@
 package com.example.projetandroidcamelea.Model;
 
+import com.google.gson.annotations.SerializedName;
+
+import java.io.Serializable;
 import java.util.List;
 
-public class Pokemon {
+public class Pokemon implements Serializable {
+    @SerializedName("_id")
     private int id ;
     private String num ;
+    @SerializedName("name")
     private String name ;
+    @SerializedName("img")
     private String img ;
     private List<String> type ;
     private String height ;
@@ -41,6 +47,18 @@ public class Pokemon {
         this.weaknesses = weaknesses;
         this.next_evolution = next_evolution;
         this.prev_evolution = prev_evolution;
+    }
+
+    /**
+     * Constructor.
+     * @param id the id.
+     * @param name the name.
+     * @param image the image.
+     */
+    public Pokemon(int id, String name, String image) {
+        this.id = id;
+        this.name = name;
+        this.img = image;
     }
 
     public int getId() {
