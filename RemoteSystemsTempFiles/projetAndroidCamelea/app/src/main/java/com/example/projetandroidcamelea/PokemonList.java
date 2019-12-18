@@ -18,7 +18,6 @@ import com.example.projetandroidcamelea.Common.Common;
 import com.example.projetandroidcamelea.Common.ItemOffSetDecoration;
 import com.example.projetandroidcamelea.DataBase.PokemonDAO;
 import com.example.projetandroidcamelea.Model.Pokedex;
-import com.example.projetandroidcamelea.Model.Pokemon;
 import com.example.projetandroidcamelea.RetroFit.Ipokemondex;
 import com.example.projetandroidcamelea.RetroFit.RetroFitClient;
 
@@ -39,14 +38,14 @@ public class PokemonList extends Fragment {
     RecyclerView pokemon_list_recyclerview;
     private ImageView list_icon;
     private ImageView grid_icon;
-    private String affichage = "list";
+    private String affichage ="list";
     private RecyclerView.LayoutManager layoutManager;
     private PokemonDAO database;
 
     static PokemonList instance;
 
     public static PokemonList getInstance() {
-        if (instance == null)
+        if(instance == null)
             instance = new PokemonList();
         return instance;
     }
@@ -93,18 +92,16 @@ public class PokemonList extends Fragment {
                 pokemon_list_recyclerview.setLayoutManager(layoutManager);
                 affichage = "grid";
                 fetchData();
-            }
-        });
-        ItemOffSetDecoration itemOffSetDecoration = new ItemOffSetDecoration(getActivity(), R.dimen.spacing);
+            }});
+        ItemOffSetDecoration itemOffSetDecoration = new ItemOffSetDecoration(getActivity(),R.dimen.spacing);
         pokemon_list_recyclerview.addItemDecoration(itemOffSetDecoration);
         fetchData();
         return view;
     }
 
     private void fetchData() {
-        if (database.getAllPokemons().size() == 151) {
-            Common.commonPokemonList = database.getAllPokemons();
-            PokemonListAdapter adapter = new PokemonListAdapter(getActivity(), Common.commonPokemonList);
+        if( database.getAllPokemons() != null && !database.getAllPokemons().isEmpty()){
+            PokemonListAdapter adapter = new PokemonListAdapter(getActivity(), database.getAllPokemons());
             adapter.affichage = affichage;
             pokemon_list_recyclerview.setAdapter(adapter);
         } else {
@@ -112,22 +109,16 @@ public class PokemonList extends Fragment {
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Consumer<Pokedex>() {
-                                   @Override
-                                   public void accept(Pokedex pokedex) throws Exception {
-                                       Common.commonPokemonList = pokedex.getPokemon();
-                                       if (database.getAllPokemons().size() < 151) {
-                                           database.PutPokemonList(pokedex.getPokemon());
-                                       }
-                                       PokemonListAdapter adapter = new PokemonListAdapter(getActivity(), Common.commonPokemonList);
-                                       adapter.affichage = affichage;
-                                       pokemon_list_recyclerview.setAdapter(adapter);
-
-                                   }
-
-                               }
-                    ));
+                        @Override
+                        public void accept(Pokedex pokedex) throws Exception {
+                            Common.commonPokemonList = pokedex.getPokemon();
+                            database.PutPokemonList(pokedex.getPokemon());
+                            PokemonListAdapter adapter = new PokemonListAdapter(getActivity(), Common.commonPokemonList);
+                            adapter.affichage = affichage;
+                            pokemon_list_recyclerview.setAdapter(adapter);
+                        }
+                    }));
         }
     }
+
 }
-
-

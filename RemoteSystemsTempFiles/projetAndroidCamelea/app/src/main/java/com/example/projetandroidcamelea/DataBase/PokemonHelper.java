@@ -15,13 +15,6 @@ public class PokemonHelper extends SQLiteOpenHelper {
     public static final String POKEMON_COLUMN_ID = "_id";
     public static final String POKEMON_COLUMN_NAME = "name";
     public static final String POKEMON_COLUMN_IMAGE = "img";
-    public static final String POKEMON_COLUMN_HEIGHT = "height";
-    public static final String POKEMON_COLUMN_WEIGHT = "weight";
-    public static final String POKEMON_COLUMN_TYPES = "type";
-    public static final String POKEMON_COLUMN_WEAKNESS = "weaknesses";
-    public static final String POKEMON_COLUMN_NEXT_EVOL = "next_evolution";
-    public static final String POKEMON_COLUMN_PREV_EVOL = "prev_evolution";
-
     private static PokemonHelper instance;
 
     public PokemonHelper(@Nullable Context context) {
@@ -44,15 +37,7 @@ public class PokemonHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE " + POKEMON_TABLE_NAME + " (" +
                 "UNIQUE" + POKEMON_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 POKEMON_COLUMN_NAME + " TEXT, " +
-                POKEMON_COLUMN_IMAGE + " TEXT," +
-                POKEMON_COLUMN_HEIGHT + " TEXT," +
-                POKEMON_COLUMN_WEIGHT + " TEXT," +
-                POKEMON_COLUMN_TYPES + " TEXT," +
-                POKEMON_COLUMN_WEAKNESS + " TEXT," +
-                POKEMON_COLUMN_NEXT_EVOL + " TEXT," +
-                POKEMON_COLUMN_PREV_EVOL + " TEXT" +
-
-                ")");
+                POKEMON_COLUMN_IMAGE + " TEXT" + ")");
 
     }
 

@@ -3,8 +3,6 @@ package com.example.projetandroidcamelea.Model;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Pokemon implements Serializable {
@@ -15,11 +13,8 @@ public class Pokemon implements Serializable {
     private String name ;
     @SerializedName("img")
     private String img ;
-    @SerializedName("type")
     private List<String> type ;
-    @SerializedName("height")
     private String height ;
-    @SerializedName("weight")
     private String weight ;
     private String candy ;
     private int candy_count ;
@@ -28,11 +23,8 @@ public class Pokemon implements Serializable {
     private double avg_spawns ;
     private String spawn_time ;
     private List<Double> multipliers;
-    @SerializedName("weaknesses")
     private List<String> weaknesses ;
-    @SerializedName("next_evolution")
     private List<NextEvolution> next_evolution ;
-    @SerializedName("prev_evolution")
     private List<PrevEvolution> prev_evolution ;
 
     public Pokemon() {
@@ -63,39 +55,10 @@ public class Pokemon implements Serializable {
      * @param name the name.
      * @param image the image.
      */
-    public Pokemon(int id, String name, String image,String height,String weight,String types,String weakness,String nextEvolution,String prevEvolution) {
+    public Pokemon(int id, String name, String image) {
         this.id = id;
         this.name = name;
         this.img = image;
-        this.height=height;
-        this.weight=weight;
-        List<String> typesList = new ArrayList<String>(Arrays.asList(types.split(" ")));
-        this.type = typesList;
-        List<String> weaknessList = new ArrayList<String>(Arrays.asList(weakness.split(" ")));
-        this.weaknesses = weaknessList;
-        List<NextEvolution> nextEvolList = new ArrayList<NextEvolution>();
-        List<String> nextevol = new ArrayList<String>(Arrays.asList(nextEvolution.split(" ")));
-        if( nextevol != null) {
-            for (String ne : nextevol) {
-                NextEvolution nxtev = new NextEvolution();
-                nxtev.setName(ne);
-                nextEvolList.add(nxtev);
-            }
-        }
-
-        List<PrevEvolution> prevEvolList = new ArrayList<PrevEvolution>();
-        List<String> prevevol = new ArrayList<String>(Arrays.asList(prevEvolution.split(" ")));
-        if( nextevol != null) {
-            for (String pe : prevevol) {
-                PrevEvolution prvevl = new PrevEvolution();
-                prvevl.setName(pe);
-                prevEvolList.add(prvevl);
-            }
-        }
-
-
-        this.next_evolution = nextEvolList;
-        this.prev_evolution = prevEvolList;
     }
 
     public int getId() {

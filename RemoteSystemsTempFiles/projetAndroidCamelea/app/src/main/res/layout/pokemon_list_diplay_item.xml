@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+
+        <ImageView
+            android:id="@+id/pokemon_image"
+
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginEnd="321dp"
+            android:layout_gravity="left"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_launcher_background" />
+
+    <TextView
+        android:id="@+id/pokemon_name"
+        android:layout_width="101dp"
+        android:layout_height="34dp"
+        android:layout_alignRight="@id/pokemon_image"
+        android:layout_alignBottom="@+id/pokemon_image"
+        android:layout_gravity="right"
+        android:layout_marginRight="-134dp"
+        android:layout_marginBottom="25dp"
+        android:text="Bulbazar"
+        android:textStyle="bold" />
+
+
+</RelativeLayout>
