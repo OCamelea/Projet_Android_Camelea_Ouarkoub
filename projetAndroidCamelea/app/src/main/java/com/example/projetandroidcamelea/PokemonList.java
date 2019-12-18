@@ -71,11 +71,13 @@ public class PokemonList extends Fragment {
 
         layoutManager = new LinearLayoutManager(getActivity());
 
-
+        //Setting the layout
         pokemon_list_recyclerview = (RecyclerView) view.findViewById(R.id.pokemon_list_recyclerview);
         pokemon_list_recyclerview.setLayoutManager(layoutManager);
         pokemon_list_recyclerview.setHasFixedSize(true);
+        //Fetching the data
         fetchData();
+        //Handling the display mode when clicking on the list button
         list_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -85,7 +87,7 @@ public class PokemonList extends Fragment {
                 fetchData();
             }
         });
-
+        //Handling the display mode when clicking on the grid button
         grid_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -102,11 +104,15 @@ public class PokemonList extends Fragment {
     }
 
     private void fetchData() {
+        //If the data are already loaded on the data base we fetch them from it
         if (database.getAllPokemons().size() == 151) {
             Common.commonPokemonList = database.getAllPokemons();
+            //New adapter
             PokemonListAdapter adapter = new PokemonListAdapter(getActivity(), Common.commonPokemonList);
             adapter.affichage = affichage;
             pokemon_list_recyclerview.setAdapter(adapter);
+
+            //Else we fetch the data from the api
         } else {
             compositeDisposable.add(ipokemondex.getListPokemon()
                     .subscribeOn(Schedulers.io())
@@ -115,9 +121,11 @@ public class PokemonList extends Fragment {
                                    @Override
                                    public void accept(Pokedex pokedex) throws Exception {
                                        Common.commonPokemonList = pokedex.getPokemon();
+                                       //Putting the data into the database.
                                        if (database.getAllPokemons().size() < 151) {
                                            database.PutPokemonList(pokedex.getPokemon());
                                        }
+                                       //New adapter
                                        PokemonListAdapter adapter = new PokemonListAdapter(getActivity(), Common.commonPokemonList);
                                        adapter.affichage = affichage;
                                        pokemon_list_recyclerview.setAdapter(adapter);

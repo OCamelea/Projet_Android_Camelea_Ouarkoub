@@ -38,6 +38,9 @@ public class Pokemon implements Serializable {
     public Pokemon() {
     }
 
+    /*
+    Constructor
+     */
     public Pokemon(int id, String num, String name, String img, List<String> type, String height, String weight, String candy, int candy_count, String egg, double spawn_chance, double avg_spawns, String spawn_time, List<String> weaknesses, List<NextEvolution> next_evolution, List<PrevEvolution> prev_evolution) {
         this.id = id;
         this.num = num;
